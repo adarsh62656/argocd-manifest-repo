@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: first-argocd-demo-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/adarsh62656/argocd-manifest-repo.git
+    targetRevision: HEAD
+    path: development
+
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: argocd-demo
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
+
+
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"first-argocd-demo-app","namespace":"argocd"},"spec":{"destination":{"namespace":"argocd-demo","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"development","repoURL":"https://github.com/adarsh62656/argocd-manifest-repo.git","targetRevision":"HEAD"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true"]}}}
